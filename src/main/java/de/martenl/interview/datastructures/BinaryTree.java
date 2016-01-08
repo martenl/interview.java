@@ -4,7 +4,7 @@ import java.util.Optional;
 import java.util.function.Consumer;
 
 /**
- * Created by Marten on 25.04.2015.
+ * Created on 25.04.2015.
  */
 public class BinaryTree<T> {
 
@@ -28,8 +28,8 @@ public class BinaryTree<T> {
 
         private final T data;
 
-        Optional<Node<T>> left;
-        Optional<Node<T>> right;
+        private Optional<Node<T>> left;
+        private Optional<Node<T>> right;
 
         public Node(T data) {
             this.data = data;

@@ -13,17 +13,17 @@ public class BinarySearchTreeTest {
 
     private BinarySearchTree<Integer> objectUnderTest;
 
-    @Test
+    //@Test
     public void testInsert() throws Exception {
 
     }
 
-    @Test
+    //@Test
     public void testDelete() throws Exception {
 
     }
 
-    @Test
+    //@Test
     public void testSearch() throws Exception {
 
     }
@@ -59,7 +59,8 @@ public class BinarySearchTreeTest {
         final Optional<Integer> result = objectUnderTest.max();
         assertEquals(expResult,result);
     }
-    @Test
+
+    //@Test
     public void testCreate() throws Exception {
 
     }

@@ -26,27 +26,27 @@ public class LinkedListTest extends TestCase {
         assertEquals(expResult,result);
     }
 
-    @Test
+    //@Test
     public void testCreateList() throws Exception {
 
     }
 
-    @Test
+    //@Test
     public void testEquals() throws Exception {
 
     }
 
-    @Test
+    //@Test
     public void testHashCode() throws Exception {
 
     }
 
-    @Test
+    //@Test
     public void testHasNext() throws Exception {
 
     }
 
-    @Test
+    //@Test
     public void testNext() throws Exception {
 
     }

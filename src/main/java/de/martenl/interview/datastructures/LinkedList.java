@@ -197,11 +197,7 @@ public class LinkedList<T> implements Iterable<T>{
 
             Node node = (Node) o;
 
-            if (!data.equals(node.data)){
-                return false;
-            }
-
-            return true;
+            return data.equals(node.data);
         }
 
         @Override
