@@ -11,7 +11,7 @@ public class Stack<T> {
         data = new LinkedList<>();
     }
 
-    private Stack(LinkedList<T> data) {
+    Stack(LinkedList<T> data) {
         this.data = data;
     }
 
