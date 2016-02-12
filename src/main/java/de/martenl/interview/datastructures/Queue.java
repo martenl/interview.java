@@ -8,7 +8,7 @@ public class Queue<T> {
     private final LinkedList<T> data;
 
     public Queue(){
-        data = new LinkedList<>();
+        data = new LinkedList<T>();
     }
 
     private Queue(LinkedList<T> data) {
@@ -17,7 +17,7 @@ public class Queue<T> {
 
     public static <T> Queue<T> createQueue(T ... elements){
         LinkedList<T> data = LinkedList.createList(elements);
-        return new Queue<>(data);
+        return new Queue<T>(data);
     }
 
     public Queue<T> enqueue(T element){
