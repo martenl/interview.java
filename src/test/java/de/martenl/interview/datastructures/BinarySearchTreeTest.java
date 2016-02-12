@@ -12,22 +12,6 @@ import static org.junit.Assert.assertEquals;
 public class BinarySearchTreeTest {
 
     private BinarySearchTree<Integer> objectUnderTest;
-
-    //@Test
-    public void testInsert() throws Exception {
-
-    }
-
-    //@Test
-    public void testDelete() throws Exception {
-
-    }
-
-    //@Test
-    public void testSearch() throws Exception {
-
-    }
-
     @Test
     public void testMin() throws Exception {
         objectUnderTest = BinarySearchTree.create(4,8,7,1,9,2,6,3,5);
@@ -58,10 +42,5 @@ public class BinarySearchTreeTest {
         final Optional<Integer> expResult = Optional.empty();
         final Optional<Integer> result = objectUnderTest.max();
         assertEquals(expResult,result);
-    }
-
-    //@Test
-    public void testCreate() throws Exception {
-
     }
 }

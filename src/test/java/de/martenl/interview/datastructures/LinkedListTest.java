@@ -26,31 +26,6 @@ public class LinkedListTest extends TestCase {
         assertEquals(expResult,result);
     }
 
-    //@Test
-    public void testCreateList() throws Exception {
-
-    }
-
-    //@Test
-    public void testEquals() throws Exception {
-
-    }
-
-    //@Test
-    public void testHashCode() throws Exception {
-
-    }
-
-    //@Test
-    public void testHasNext() throws Exception {
-
-    }
-
-    //@Test
-    public void testNext() throws Exception {
-
-    }
-
     @Test
     public void testWhere() throws Exception {
         LinkedList<Integer> objectUnderTest = LinkedList.createList(1,2,3,4);
@@ -111,8 +86,5 @@ public class LinkedListTest extends TestCase {
         LinkedList<Integer>[] expResult = new LinkedList[]{LinkedList.createList(1,3),LinkedList.createList(2)};
         LinkedList<Integer>[] result = objectUnderTest.partitionBy(x -> x % 2 == 1);
         assertArrayEquals(expResult, result);
-    }
-
-    public void testForEach() throws Exception{
     }
 }
