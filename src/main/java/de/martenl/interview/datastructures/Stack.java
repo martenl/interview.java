@@ -1,8 +1,5 @@
 package de.martenl.interview.datastructures;
 
-/**
- * Created by Marten on 24.04.2015.
- */
 public class Stack<T> {
 
     private final LinkedList<T> data;
@@ -11,7 +8,7 @@ public class Stack<T> {
         data = new LinkedList<>();
     }
 
-    private Stack(LinkedList<T> data) {
+    public Stack(LinkedList<T> data) {
         this.data = data;
     }
 
