@@ -17,11 +17,6 @@ public class StackTest {
     }
 
     @Test
-    public void testCreateStack() throws Exception {
-
-    }
-
-    @Test
     public void testPush() throws Exception {
         final int expectedSize = internalData.length()+1;
         objectUnderTest.push(1);
@@ -41,10 +36,5 @@ public class StackTest {
         final int initialSize = internalData.length();
         objectUnderTest.pop();
         assertEquals(initialSize-1,internalData.length());
-    }
-
-    @Test
-    public void testPeek() throws Exception {
-
     }
 }
