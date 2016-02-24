@@ -51,7 +51,6 @@ public class BinaryTree<T> {
             }
         }
 
-
         public T getData(){
             return data;
         }
