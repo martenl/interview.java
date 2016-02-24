@@ -49,11 +49,9 @@ public class HashTable<K,V> {
 
     public Set<K> keys(){
         Set<K> result = new HashSet<>();
-        for(LinkedList<Item<K,V>> bucket : buckets){
-            for(Item<K,V> item : bucket){
-                result.add(item.getKey());
-            }
-        }
+        buckets.forEach(
+                bucket -> bucket.forEach(
+                        item -> result.add(item.getKey())));
         return result;
     }
 
@@ -72,6 +70,10 @@ public class HashTable<K,V> {
         int bucketIndex = hash < 0 ? -hash % buckets.length() : hash % buckets.length();
         LinkedList<Item<K,V>> bucket = buckets.get(bucketIndex);
         return bucket;
+    }
+
+    public boolean contains(K key) {
+        return keys().contains(key);
     }
 
     private static class Item<K,V>{
