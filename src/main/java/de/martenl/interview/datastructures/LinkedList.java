@@ -2,10 +2,8 @@ package de.martenl.interview.datastructures;
 
 import java.util.Iterator;
 import java.util.Spliterator;
-import java.util.function.BinaryOperator;
-import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.function.Predicate;
+import java.util.function.*;
+
 
 /**
  * Created by Marten on 09.03.2015.
@@ -121,6 +119,11 @@ public class LinkedList<T> implements Iterable<T>{
         return result;
     }
 
+    public LinkedList<T> sortBy(BiPredicate<T,T> greaterThan){
+
+        return this;
+    }
+
     @Override
     public Spliterator<T> spliterator() {
         return null;
@@ -168,13 +171,34 @@ public class LinkedList<T> implements Iterable<T>{
       return root.remove(index);
     }
 
+    public LinkedList<T> swap(int firstIndex,int secondIndex){
+        if(firstIndex> secondIndex){
+            return swap(secondIndex,firstIndex);
+        }
+        final int length = length();
+        if(firstIndex >= 0 && secondIndex >= 0 && length>firstIndex && length>secondIndex){
+            T secondElement = remove(secondIndex);
+            T firstElement = remove(firstIndex);
+            add(secondElement,firstIndex);
+            add(firstElement,secondIndex);
+        }
+        return this;
+    }
+
     public LinkedList<T> add(T element, int index) {
         if(index == 0){
             root = new Node<T>(element,root,null);
         }else {
-            root.add(element,index-1);
+            root.add(element, index - 1);
         }
         return this;
+    }
+
+    public boolean contains(T element) {
+        if(root == null){
+            return false;
+        }
+        return root.contains(element);
     }
 
     class Node<T>{
@@ -263,7 +287,7 @@ public class LinkedList<T> implements Iterable<T>{
                 }
                 return data;
             }
-            return next.remove(index-1);
+            return next.remove(index - 1);
         }
 
         public T get(int index){
@@ -273,7 +297,7 @@ public class LinkedList<T> implements Iterable<T>{
             if(next == null){
                 return null;
             }
-            return next.get(index-1);
+            return next.get(index - 1);
         }
 
         public Node<T> reverse() {
@@ -293,6 +317,16 @@ public class LinkedList<T> implements Iterable<T>{
                 next.clear();
             }
             next = null;
+        }
+
+        public boolean contains(T element) {
+            if(data.equals(element)){
+                return true;
+            }
+            if(next == null){
+                return false;
+            }
+            return next.contains(element);
         }
     }
 
@@ -319,6 +353,13 @@ public class LinkedList<T> implements Iterable<T>{
                 return result;
             }
             return null;
+        }
+
+        @Override
+        public void forEachRemaining(Consumer<? super T> action) {
+            while(hasNext()){
+                action.accept(next());
+            }
         }
     }
 }
