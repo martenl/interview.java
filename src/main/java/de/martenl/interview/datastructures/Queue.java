@@ -11,7 +11,7 @@ public class Queue<T> {
         data = new LinkedList<T>();
     }
 
-    private Queue(LinkedList<T> data) {
+    Queue(LinkedList<T> data) {
         this.data = data;
     }
 
