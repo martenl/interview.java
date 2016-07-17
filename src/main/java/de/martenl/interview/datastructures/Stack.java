@@ -1,5 +1,10 @@
 package de.martenl.interview.datastructures;
 
+import java.util.Optional;
+
+/**
+ * Created by Marten on 24.04.2015.
+ */
 public class Stack<T> {
 
     private final LinkedList<T> data;
@@ -8,7 +13,7 @@ public class Stack<T> {
         data = new LinkedList<>();
     }
 
-    public Stack(LinkedList<T> data) {
+    Stack(LinkedList<T> data) {
         this.data = data;
     }
 
@@ -22,11 +27,23 @@ public class Stack<T> {
         return this;
     }
 
-    public T pop(){
+    public T pop() throws StackEmptyException{
+        if(data.isEmpty()){
+            throw new StackEmptyException("There are no elements in the stack");
+        }
         return data.remove(0);
     }
 
-    public T peek(){
-        return data.get(0);
+    public Optional<T> peek(){
+        if(data.isEmpty()){
+            return Optional.empty();
+        }
+        return Optional.of(data.get(0));
     }
+
+    public boolean isEmpty() {
+        return data.isEmpty();
+    }
+
+
 }
