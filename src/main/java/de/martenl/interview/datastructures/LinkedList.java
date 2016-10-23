@@ -120,8 +120,66 @@ public class LinkedList<T> implements Iterable<T>{
     }
 
     public LinkedList<T> sortBy(BiPredicate<T,T> greaterThan){
-
+        quickSort(0,length()-1,greaterThan);
         return this;
+    }
+
+    public LinkedList<T> selectionSort(BiPredicate<T,T> greaterThan){
+        LinkedList<T> sortedList = new LinkedList<>();
+        final int length = length();
+        for(int i = 0;i<length;i++){
+            final int min = minIndex(greaterThan);
+            sortedList.add(remove(min));
+        }
+        return sortedList;
+    }
+
+    public int maxIndex(BiPredicate<T,T> greaterThan){
+        return minIndex(greaterThan);
+    }
+
+    public int minIndex(BiPredicate<T,T> lessThan){
+        final int length = length();
+        if(length == 0){
+            return -1;
+        }
+        if(length == 1){
+            return 0;
+        }
+        return root.minIndex(lessThan);
+    }
+
+    private void quickSort(int from,int to,BiPredicate<T,T> greaterThan){
+        System.out.println("quicksort from "+from+" to "+to);
+        print();
+        if(from < to){
+            int pivot = partition(from,to,greaterThan);
+            System.out.println("after partition from "+from+" to "+to);
+            print();
+            quickSort(from, pivot - 1, greaterThan);
+            quickSort(pivot+1,to,greaterThan);
+        }
+    }
+
+    private int partition(int from, int to, BiPredicate<T, T> greaterThan) {
+        System.out.println(from+" "+to);
+        T pivot = get(to);
+        int i = from-1;
+        for(int j = from;j<to-1;j++){
+            if(greaterThan.test(get(j),pivot)){
+                i++;
+                swap(i,j);
+            }
+            System.out.println("j = "+j);
+            print();
+        }
+        swap(i+1,to);
+        return i+1;
+    }
+
+    public void print() {
+        forEach(x -> System.out.print(x + "\t"));
+        System.out.println();
     }
 
     @Override
@@ -327,6 +385,26 @@ public class LinkedList<T> implements Iterable<T>{
                 return false;
             }
             return next.contains(element);
+        }
+
+        public int minIndex(BiPredicate<T,T> lessThan) {
+            if(hasNext()){
+                return next.minIndex(0,1,data,lessThan);
+            }
+            return 0;
+        }
+
+        private int minIndex(int currentMin,int index,T currentMinData,BiPredicate<T,T> lessThan){
+            if(hasNext()){
+                if(lessThan.test(data,currentMinData)){
+                    return next.minIndex(index,index+1,data,lessThan);
+                }
+                return next.minIndex(currentMin,index+1,currentMinData,lessThan);
+            }
+            if(lessThan.test(data,currentMinData)){
+                return index;
+            }
+            return currentMin;
         }
     }
 
