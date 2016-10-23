@@ -2,9 +2,6 @@ package de.martenl.interview.datastructures;
 
 import java.util.Optional;
 
-/**
- * Created by Marten on 24.04.2015.
- */
 public class BinarySearchTree<T extends Comparable> {
 
     private Optional<BSTNode<T>> root = Optional.empty();
