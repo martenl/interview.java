@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class StackTest {
 
@@ -26,8 +27,11 @@ public class StackTest {
     @Test
     public void testPopWithEmptyStack() throws Exception {
         final int initialSize = internalData.length();
-        objectUnderTest.pop();
-        assertEquals(initialSize,internalData.length());
+        try{
+            objectUnderTest.pop();
+        }catch(StackEmptyException e){
+            assertTrue(true);
+        }
     }
 
     @Test
