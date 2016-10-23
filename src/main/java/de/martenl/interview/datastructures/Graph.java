@@ -8,8 +8,8 @@ import java.util.function.Consumer;
  */
 public class Graph<T> {
 
-    final LinkedList<T> vertices;
-    final HashTable<T,LinkedList<Edge<T>>> edges;
+    private final LinkedList<T> vertices;
+    private final HashTable<T,LinkedList<Edge<T>>> edges;
 
     public Graph() {
         this.vertices = new LinkedList<>();
@@ -28,6 +28,22 @@ public class Graph<T> {
         deleteEdgesFrom(element);
         deleteEdgesTo(element);
         return this;
+    }
+
+    public Graph<T> dfs(T startVertex) throws StackEmptyException {
+        Graph<T> dfsGraph = new Graph<>();
+        Stack<T> unseenVertices = Stack.createStack(startVertex);
+        LinkedList<T> seenVertices = LinkedList.createList(startVertex);
+        while(!unseenVertices.isEmpty()){
+            T nextVertex = unseenVertices.pop();
+            for(Edge<T> edge : edges.get(nextVertex)){
+                if(!seenVertices.contains(edge.to)){
+                    dfsGraph.addEdge(edge.getFrom(),edge.getTo(),edge.getWeight());
+                }
+                unseenVertices.push(edge.getTo());
+            }
+        }
+        return dfsGraph;
     }
 
     private void deleteEdgesFrom(T vertex){
@@ -100,27 +116,37 @@ public class Graph<T> {
         }
     }
 
+    public Graph<T> prim(){
+        Graph<T> mst = new Graph<>();
+        LinkedList<Edge<T>> sortedEdges = ((EdgeIterator)edgeIterator()).toList()
+                .selectionSort((x,y)->((Edge) x).getWeight()<((Edge)y).getWeight());
+        for(Edge<T> edge : sortedEdges){
+
+        }
+        return mst;
+    }
+
     public Iterator<Edge<T>> edgeIterator(){
         return new EdgeIterator<T>(edges);
     }
 
-    public class Edge<T> implements Comparable<Edge<T>>{
+    public class Edge<S> implements Comparable<Edge<S>>{
 
-        final T from;
-        final T to;
-        final double weight;
+        private final S from;
+        private final S to;
+        private final double weight;
 
-        public Edge(T from, T to, double weight) {
+        public Edge(S from, S to, double weight) {
             this.from = from;
             this.to = to;
             this.weight = weight;
         }
 
-        public T getFrom() {
+        public S getFrom() {
             return from;
         }
 
-        public T getTo() {
+        public S getTo() {
             return to;
         }
 
@@ -149,7 +175,7 @@ public class Graph<T> {
         }
 
         @Override
-        public int compareTo(Edge<T> o) {
+        public int compareTo(Edge<S> o) {
             if(o.getWeight()<weight){
                 return 1;
             }
@@ -158,11 +184,20 @@ public class Graph<T> {
             }
             return 0;
         }
+
+        @Override
+        public String toString() {
+            return "Edge{" +
+                    "from=" + from +
+                    ", to=" + to +
+                    ", weight=" + weight +
+                    '}';
+        }
     }
 
     public class EdgeIterator<T> implements Iterator<Edge<T>>{
 
-        final LinkedList<Iterator<Edge<T>>> iterators;
+        private final LinkedList<Iterator<Edge<T>>> iterators;
 
         public EdgeIterator(HashTable<T,LinkedList<Edge<T>>> adjencyMap) {
             iterators = new LinkedList<>();
@@ -195,6 +230,12 @@ public class Graph<T> {
             while(hasNext()){
                 action.accept(next());
             }
+        }
+
+        public LinkedList<Edge<T>> toList(){
+            LinkedList<Edge<T>> edges = new LinkedList<>();
+            forEachRemaining(edge -> edges.add(edge));
+            return edges;
         }
     }
 }
